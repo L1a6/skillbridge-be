@@ -38,7 +38,7 @@ export class PasswordResetQueueService
     this.worker = new Worker(
       QUEUE_NAME,
       async (job: Job<PasswordResetJobData>) => {
-        const { userId } = job.data as PasswordResetJobData;
+        const { userId } = job.data;
         await this.passwordResetDeliveryService.deliverForUser(userId);
       },
       { connection: conn },
